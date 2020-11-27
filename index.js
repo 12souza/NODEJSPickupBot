@@ -113,15 +113,15 @@ bot.on('message', message => {
                 message.channel.send("Done!")
                 
                 if(p1p == "rock" && p2p == "scisscors"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
-                else if(p1p == "rock" && p2p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
+                else if(p1p == "rock" && p2p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
                 else if(p1p == "rock" && p2p == "rock"){message.channel.send("Tie! use !rps again")}
                 else if(p1p == "paper" && p2p == "paper"){message.channel.send("Tie! use !rps again")}
                 else if(p1p == "scissors" && p2p == "scissors"){message.channel.send("Tie! use !rps again")}
-                else if(p2p == "rock" && p1p == "scisscors"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
+                else if(p2p == "rock" && p1p == "scisscors"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
                 else if(p2p == "rock" && p1p == "paper"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
                 else if(p2p == "paper" && p1p == "scisscors"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
-                else if(p2p == "scissors" && p1p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
-                else if(p1p == ""){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
+                else if(p2p == "scissors" && p1p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
+                else if(p1p == ""){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
                 else if(p2p == ""){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
                 else{message.channel.send("Nobody threw.. use !rps again")}});
                 pick++
