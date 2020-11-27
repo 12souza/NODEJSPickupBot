@@ -82,7 +82,7 @@ bot.on('message', message => {
         message.channel.send("```" + msgList.join('') + "```")
     }
     if (message.content.startsWith('!captains')){
-        if(players.length == 0){    
+        if(players.length == 8){    
             msgSplit = message.content.split(" ")
             playerOne = msgSplit[1].toLowerCase()
             playerTwo = msgSplit[2].toLowerCase()
