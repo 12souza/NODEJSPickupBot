@@ -1,15 +1,15 @@
 const { SSL_OP_EPHEMERAL_RSA } = require('constants');
 var Discord = require('discord.js')
 
-var discordtoken = "NzMyMzcyMTcwMzY5NTMxOTc4.XwzovA.FUE8v-X_OzMgBAOSPQHLRBLzGxM";
-var players = [];
+var discordtoken = "NzMyMzcyMTcwMzY5NTMxOTc4.XwzovA.9Ol7lGKXVeI2vOE2IJ6vyr1s2Yk";
+var players = ["jake", "jack", "jill", "hf", "lb", "cb"];
 var blueTeam = [];
 var redTeam = [];
 var playerOne = ""
 var playerTwo = ""
 var p1p = ""
 var p2p = ""
-var pick = 0
+var pick = 1
 var bCaptain = ""
 var rCaptain = ""
 
@@ -34,11 +34,14 @@ function sleep(ms) {
 
 bot.on('message', message => {
 	if (message.content == '!pickup') {
+        //players = []
+        blueTeam = []
+        redTeam = []
         if(message.member.nickname == null){
-            players.push(message.author.username.toLowerCase()) 
+            players.push((message.author.username).toLowerCase())
         }
         else{
-            players.push(message.member.nickname.toLowerCase())
+            players.push((message.member.nickname).toLowerCase())
         }
         msgList = ["The Pickup Has Started! Please type !add to join in!\n\n", ]
         
@@ -112,22 +115,40 @@ bot.on('message', message => {
             sleep(4000).then(() => {
                 message.channel.send("Done!")
                 
-                if(p1p == "rock" && p2p == "scisscors"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
-                else if(p1p == "rock" && p2p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
+                /*if(p1p == "rock" && p2p == "scisscors"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
+                else if(p1p == "rock" && p2p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
                 else if(p1p == "rock" && p2p == "rock"){message.channel.send("Tie! use !rps again")}
                 else if(p1p == "paper" && p2p == "paper"){message.channel.send("Tie! use !rps again")}
                 else if(p1p == "scissors" && p2p == "scissors"){message.channel.send("Tie! use !rps again")}
-                else if(p2p == "rock" && p1p == "scisscors"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
+                else if(p2p == "rock" && p1p == "scisscors"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
                 else if(p2p == "rock" && p1p == "paper"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
                 else if(p2p == "paper" && p1p == "scisscors"){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
-                else if(p2p == "scissors" && p1p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
-                else if(p1p == ""){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; redTeam.push(playerOne)}
+                else if(p2p == "scissors" && p1p == "paper"){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
+                else if(p1p == ""){message.channel.send(playerTwo + " will pick first!"); playerTwo = bCaptain; blueTeam.push(playerTwo); playerOne = rCaptain; blueTeam.push(playerOne)}
                 else if(p2p == ""){message.channel.send(playerOne + " will pick first!"); playerOne = bCaptain; blueTeam.push(playerOne); playerTwo = rCaptain; redTeam.push(playerTwo)}
-                else{message.channel.send("Nobody threw.. use !rps again")}});
+            else{message.channel.send("Nobody threw.. use !rps again")}*/});
                 pick++
             }
         else{
             message.channel.send("Captains havent been chosen yet..")
+        }
+    }
+    if(message.content.startsWith('!winner')){
+        msgSplit = message.content.split(" ")
+        winner = msgSplit[1].toLowerCase()
+        console.log(winner)
+        console.log(playerOne)
+        if(winner == playerOne){
+            bCaptain = playerOne
+            rCaptain = playerTwo
+            blueTeam.push(playerOne)
+            redTeam.push(playerTwo)
+        }
+        else{
+            rCaptain = playerOne
+            bCaptain = playerTwo
+            redTeam.push(playerOne)
+            blueTeam.push(playerTwo)  
         }
     }
     if(message.content == 'r'){
@@ -184,36 +205,39 @@ bot.on('message', message => {
             message.channel.send("You are not a captain.")
         }
     }
-    if (message.content.startsWith('!pick')){
+    if (message.content.startsWith('!choose')){
         var captainPick
         msgSplit = message.content.split(" ")
         playerPick = msgSplit[1].toLowerCase()
         const index = players.indexOf(playerPick)
         if(message.member.nickname == null){
-            captainPick = message.author.username 
+            console.log(typeof message.author.username)
+            captainPick = message.author.username.toLowerCase()
         }
         else{
-            captainPick = message.author.nickname
+            captainPick = message.member.nickname.toLowerCase()
         }
         if(pick == 1){
-            if(captainPick == bCaptain){
+            console.log(bCaptain)
+            if(captainPick.toLowerCase() == bCaptain){
+                console.log("made it")
                 if(players.includes(playerPick)){
                     blueTeam.push(playerPick)
                     players.splice(index, 1);
                     pick++
-
+                    var msgList = []
                     for (let step = 0; step < players.length; step++) {
                         msgList.push(players[step] + "\n")
                     }
-                    message.channel.send("```" + msgList.join('') + "```")
+                    bmsgList = []
                     for (let step = 0; step < blueTeam.length; step++) {
-                        msgList.push(blueTeam[step] + "\n")
+                        bmsgList.push(blueTeam[step] + "\n")
                     }
-                    message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+                    rmsgList = []
                     for (let step = 0; step < redTeam.length; step++) {
-                        msgList.push(redTeam[step] + "\n")
+                        rmsgList.push(redTeam[step] + "\n")
                     }
-                    message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+                    message.channel.send("```Elibile Players \n\n" + msgList.join('') + "\n\nBlue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
                 }
                 else{
                     message.channel.send("Not a Player in the Pickup..")
@@ -230,18 +254,19 @@ bot.on('message', message => {
                     players.splice(index, 1);
                     pick++
 
+                    var msgList = []
                     for (let step = 0; step < players.length; step++) {
                         msgList.push(players[step] + "\n")
                     }
-                    message.channel.send("```" + msgList.join('') + "```")
+                    bmsgList = []
                     for (let step = 0; step < blueTeam.length; step++) {
-                        msgList.push(blueTeam[step] + "\n")
+                        bmsgList.push(blueTeam[step] + "\n")
                     }
-                    message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+                    rmsgList = []
                     for (let step = 0; step < redTeam.length; step++) {
-                        msgList.push(redTeam[step] + "\n")
+                        rmsgList.push(redTeam[step] + "\n")
                     }
-                    message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+                    message.channel.send("```Elibile Players \n\n" + msgList.join('') + "\n\nBlue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
                 }
                 else{
                     message.channel.send("Not a Player in the Pickup..")
@@ -258,18 +283,19 @@ bot.on('message', message => {
                     players.splice(index, 1);
                     pick++
 
+                    var msgList = []
                     for (let step = 0; step < players.length; step++) {
                         msgList.push(players[step] + "\n")
                     }
-                    message.channel.send("```" + msgList.join('') + "```")
+                    bmsgList = []
                     for (let step = 0; step < blueTeam.length; step++) {
-                        msgList.push(blueTeam[step] + "\n")
+                        bmsgList.push(blueTeam[step] + "\n")
                     }
-                    message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+                    rmsgList = []
                     for (let step = 0; step < redTeam.length; step++) {
-                        msgList.push(redTeam[step] + "\n")
+                        rmsgList.push(redTeam[step] + "\n")
                     }
-                    message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+                    message.channel.send("```Elibile Players \n\n" + msgList.join('') + "\n\nBlue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
                 }
                 else{
                     message.channel.send("Not a Player in the Pickup..")
@@ -286,18 +312,19 @@ bot.on('message', message => {
                     players.splice(index, 1);
                     pick++
 
+                    var msgList = []
                     for (let step = 0; step < players.length; step++) {
                         msgList.push(players[step] + "\n")
                     }
-                    message.channel.send("```" + msgList.join('') + "```")
+                    bmsgList = []
                     for (let step = 0; step < blueTeam.length; step++) {
-                        msgList.push(blueTeam[step] + "\n")
+                        bmsgList.push(blueTeam[step] + "\n")
                     }
-                    message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+                    rmsgList = []
                     for (let step = 0; step < redTeam.length; step++) {
-                        msgList.push(redTeam[step] + "\n")
+                        rmsgList.push(redTeam[step] + "\n")
                     }
-                    message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+                    message.channel.send("```Elibile Players \n\n" + msgList.join('') + "\n\nBlue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
                 }
                 else{
                     message.channel.send("Not a Player in the Pickup..")
@@ -314,18 +341,19 @@ bot.on('message', message => {
                     players.splice(index, 1);
                     pick++
 
+                    var msgList = []
                     for (let step = 0; step < players.length; step++) {
                         msgList.push(players[step] + "\n")
                     }
-                    message.channel.send("```" + msgList.join('') + "```")
+                    bmsgList = []
                     for (let step = 0; step < blueTeam.length; step++) {
-                        msgList.push(blueTeam[step] + "\n")
+                        bmsgList.push(blueTeam[step] + "\n")
                     }
-                    message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+                    rmsgList = []
                     for (let step = 0; step < redTeam.length; step++) {
-                        msgList.push(redTeam[step] + "\n")
+                        rmsgList.push(redTeam[step] + "\n")
                     }
-                    message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+                    message.channel.send("```Elibile Players \n\n" + msgList.join('') + "\n\nBlue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
                 }
                 else{
                     message.channel.send("Not a Player in the Pickup..")
@@ -338,15 +366,15 @@ bot.on('message', message => {
         if(pick == 6){
             blueTeam.push(players[0])
             pick = 0
-
+            var bmsgList = []
             for (let step = 0; step < blueTeam.length; step++) {
-                msgList.push(blueTeam[step] + "\n")
+                bmsgList.push(blueTeam[step] + "\n")
             }
-            message.channel.send("```Blue Team\n\n" + msgList.join('') + "```")
+            rmsgList = []
             for (let step = 0; step < redTeam.length; step++) {
-                msgList.push(redTeam[step] + "\n")
+                rmsgList.push(redTeam[step] + "\n")
             }
-            message.channel.send("```Red Team \n\n" + msgList.join('') + "```")
+            message.channel.send("```Blue Team\n" + bmsgList.join('') + "\n\nRed Team\n" + rmsgList.join('') + "```")
         }
     }
 
